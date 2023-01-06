@@ -2,17 +2,23 @@ package org.sebastiansiarczynski.weather.dto;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.io.Serializable;
 
-public class WeatherResponseDTO implements Serializable {
+/**
+ * Klasa będąca obiektem transferu danych (DTO) odpowiedzialnym za przesyłanie danych informacji
+ * zwrotnej do klienta. Klasa ta mapuje pola z informacji zwrontej z
+ * <a href="https://openweathermap.org/current">API Open Weather</a>
+ *
+ * @author Sebastian Siarczyński
+ */
+public class WeatherResponseDTO {
 
   private final static ObjectMapper objectMapper = new ObjectMapper();
   private final WeatherResponse[] weather;
   private final String name;
   private final TempResponse main;
+  private final String error;
 
-  public static final class WeatherResponse implements Serializable {
+  public static final class WeatherResponse {
 
     private int id;
     private String main;
@@ -35,32 +41,18 @@ public class WeatherResponseDTO implements Serializable {
       return icon;
     }
 
-    public void setId(int id) {
-      this.id = id;
-    }
-
-    public void setMain(String main) {
-      this.main = main;
-    }
-
-    public void setDescription(String description) {
-      this.description = description;
-    }
-
-    public void setIcon(String icon) {
-      this.icon = icon;
-    }
   }
 
-  public static final class TempResponse implements Serializable {
+  public static final class TempResponse {
 
     private int temp;
     private int pressure;
     private int humidity;
     private int temp_min;
     private int temp_max;
-
-    private long feels_like;
+    private int feels_like;
+    private int sea_level;
+    private int grnd_level;
 
     public int getTemp() {
       return temp;
@@ -82,50 +74,68 @@ public class WeatherResponseDTO implements Serializable {
       return temp_max;
     }
 
-    public long getFeels_like() {
+    public int getFeels_like() {
       return feels_like;
     }
 
-    public void setTemp(int temp) {
-      this.temp = temp;
+    public int getSea_level() {
+      return sea_level;
     }
 
-    public void setPressure(int pressure) {
-      this.pressure = pressure;
-    }
-
-    public void setHumidity(int humidity) {
-      this.humidity = humidity;
-    }
-
-    public void setTemp_min(int temp_min) {
-      this.temp_min = temp_min;
-    }
-
-    public void setTemp_max(int temp_max) {
-      this.temp_max = temp_max;
-    }
-
-    public void setFeels_like(long feels_like) {
-      this.feels_like = feels_like;
+    public int getGrnd_level() {
+      return grnd_level;
     }
   }
 
   private WeatherResponseDTO(final WeatherResponse[] weather,
-      final TempResponse main, final String name) {
+      final TempResponse main, final String name, final String error) {
     this.weather = weather;
     this.name = name;
     this.main = main;
+    this.error = error;
   }
 
-  public static WeatherResponseDTO fromJsonNode(final JsonNode jsonNode) throws IOException {
+  /**
+   * Metoda fabryczna tworząca klasę na podstawie JsonNode, który jest otrzymywany z odpowiedzi z
+   * Open Weather
+   *
+   * @param jsonNode JSON z odpowiedzi od Open Weather
+   * @return Nowy obiekt DTO
+   */
+  public static WeatherResponseDTO fromJsonNode(final JsonNode jsonNode) {
     WeatherResponse[] weathers = objectMapper.convertValue(jsonNode.get("weather"),
         WeatherResponse[].class);
 
     TempResponse main = objectMapper.convertValue(jsonNode.get("main"), TempResponse.class);
     String name = objectMapper.convertValue(jsonNode.get("name"), String.class);
 
-    return new WeatherResponseDTO(weathers, main, name);
+    return new WeatherResponseDTO(weathers, main, name, "");
+  }
+
+  /**
+   * Metoda fabryczna tworząca klasę na podstawie błędu jaki wystąpił podczas pobierania danych z
+   * Open Weather
+   *
+   * @param error Wiadomośc z błędem
+   * @return Nowy obiekt DTO
+   */
+  public static WeatherResponseDTO fromError(final String error) {
+    return new WeatherResponseDTO(null, null, null, error);
+  }
+
+  public WeatherResponse[] getWeather() {
+    return weather;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public TempResponse getMain() {
+    return main;
+  }
+
+  public String getError() {
+    return error;
   }
 }
-

@@ -14,7 +14,7 @@ import org.eclipse.jetty.util.ajax.JSON;
  */
 public class WeatherInterceptor {
 
-  private final static String WEATHER_API_HEADER = "X-Weather-Api-Key";
+  private static final String WEATHER_API_HEADER = "X-Weather-Api-Key";
 
   /**
    * Metoda wykonująca walidację zapytania HTTP
@@ -27,7 +27,7 @@ public class WeatherInterceptor {
         halt(400, JSON.toString(Map.of("message", "Lack of weather api key header!")));
       }
 
-      System.out.printf("Request for path: %s is valid", req.uri());
+      System.out.printf("Request for path: %s is valid\n", req.uri());
     });
   }
 }

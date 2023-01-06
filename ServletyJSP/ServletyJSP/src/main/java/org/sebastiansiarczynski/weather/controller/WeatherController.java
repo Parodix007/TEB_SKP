@@ -25,7 +25,7 @@ public class WeatherController {
   }
 
   /**
-   * Metoda odpowiedzialna za tworzenie ścieżek.
+   * Metoda odpowiedzialna za tworzenie i obsługę ścieżek.
    */
   public void routesInit() {
     get("/city/:city", (req, res) -> {
@@ -38,6 +38,37 @@ public class WeatherController {
         res.status(200);
         res.body(
             objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(weatherDataForCity));
+      } catch (final Exception e) {
+        e.printStackTrace();
+
+        res.status(500);
+        res.body(JSON.toString(Map.of("message", e.getMessage())));
+      }
+
+      res.type("application-json");
+      return res.body();
+    });
+
+    get("/location", (req, res) -> {
+      res.type("application-json");
+
+      String lat = req.queryParams("lat");
+      String lon = req.queryParams("lon");
+
+      if (lat == null || lon == null) {
+        res.status(400);
+        res.body(JSON.toString(Map.of("message", "Missing query params!")));
+
+        return res.body();
+      }
+
+      try {
+        WeatherResponseDTO weatherDataForLocation = weatherService.getWeatherDataForLocation(lat,
+            lon, req.headers(WEATHER_API_HEADER));
+
+        res.status(200);
+        res.body(objectMapper.writerWithDefaultPrettyPrinter()
+            .writeValueAsString(weatherDataForLocation));
       } catch (final Exception e) {
         e.printStackTrace();
 
