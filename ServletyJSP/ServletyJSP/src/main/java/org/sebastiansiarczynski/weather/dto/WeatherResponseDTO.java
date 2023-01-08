@@ -2,6 +2,7 @@ package org.sebastiansiarczynski.weather.dto;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDateTime;
 
 /**
  * Klasa będąca obiektem transferu danych (DTO) odpowiedzialnym za przesyłanie danych informacji
@@ -17,6 +18,8 @@ public class WeatherResponseDTO {
   private final String name;
   private final TempResponse main;
   private final String error;
+
+  private final LocalDateTime localDateTime = LocalDateTime.now();
 
   public static final class WeatherResponse {
 
@@ -137,5 +140,9 @@ public class WeatherResponseDTO {
 
   public String getError() {
     return error;
+  }
+
+  public LocalDateTime getLocalDateTime() {
+    return localDateTime;
   }
 }

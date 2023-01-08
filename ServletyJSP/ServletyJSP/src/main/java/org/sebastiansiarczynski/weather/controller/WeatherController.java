@@ -18,9 +18,10 @@ public class WeatherController {
 
   private final WeatherService weatherService;
   private final static String WEATHER_API_HEADER = "X-Weather-Api-Key";
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final static ObjectMapper objectMapper = new ObjectMapper();
 
   public WeatherController(final WeatherService weatherService) {
+
     this.weatherService = weatherService;
   }
 
