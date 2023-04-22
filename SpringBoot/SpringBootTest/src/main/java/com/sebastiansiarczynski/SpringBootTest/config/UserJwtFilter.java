@@ -64,6 +64,7 @@ public class UserJwtFilter extends OncePerRequestFilter {
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     filterChain.doFilter(request, response);
+
     System.out.println("ENDED USER JWT FILTER");
   }
 

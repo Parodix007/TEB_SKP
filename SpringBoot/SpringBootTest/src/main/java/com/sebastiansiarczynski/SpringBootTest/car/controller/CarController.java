@@ -22,15 +22,9 @@ public class CarController {
 
   @GetMapping(value = "/{id}")
   public ResponseEntity<CarDto> carGet(final @PathVariable int id) {
-    try {
-      final CarDto carById = carService.findCarById(id);
+    final CarDto carById = carService.findCarById(id);
 
-      return new ResponseEntity<>(carById, HttpStatus.OK);
-    } catch (IllegalArgumentException e) {
-      log.error("Error while getting car by ID!", e);
-
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+    return new ResponseEntity<>(carById, HttpStatus.OK);
   }
 
   @GetMapping(value = "/{year}/{brand}")

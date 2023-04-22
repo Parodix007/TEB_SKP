@@ -1,8 +1,9 @@
 package com.sebastiansiarczynski.SpringBootTest.user.controller;
 
-import com.sebastiansiarczynski.SpringBootTest.user.model.UserDto;
+import com.sebastiansiarczynski.SpringBootTest.user.model.dto.UserDto;
 import com.sebastiansiarczynski.SpringBootTest.user.service.UserService;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,15 +24,9 @@ public class UserController {
 
   @GetMapping(value = "/{id}")
   public ResponseEntity<UserDto> get(final @PathVariable int id) {
-    try {
-      final UserDto userById = userService.findUserById(id);
+    final UserDto userById = userService.findUserById(id);
 
-      return new ResponseEntity<>(userById, HttpStatus.OK);
-    } catch (IllegalArgumentException e) {
-      log.error("Error while getting user!", e);
-
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+    return new ResponseEntity<>(userById, HttpStatus.OK);
   }
 
   @GetMapping(value = "/range/age")

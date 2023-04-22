@@ -2,7 +2,7 @@ package com.sebastiansiarczynski.SpringBootTest.user.service;
 
 import com.sebastiansiarczynski.SpringBootTest.user.exception.UserServiceException;
 import com.sebastiansiarczynski.SpringBootTest.user.model.User;
-import com.sebastiansiarczynski.SpringBootTest.user.model.UserDto;
+import com.sebastiansiarczynski.SpringBootTest.user.model.dto.UserDto;
 import com.sebastiansiarczynski.SpringBootTest.user.repo.UserRepo;
 import java.util.Collections;
 import java.util.List;

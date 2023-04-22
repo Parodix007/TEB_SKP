@@ -42,7 +42,6 @@ public class GlobalWebConfig {
     return httpSecurity.build();
   }
 
-
   @Bean
   public CarJwtFilter carJwtFilter(final @Value("${jwt.secret}") String jwtCarSecret,
       final @Value("${jwt.issuer}") String jwtCarIssuer) {
