@@ -1,5 +1,6 @@
 package com.sebastiansiarczynski.SpringBootTest.car.repo;
 
+import com.sebastiansiarczynski.SpringBootTest.car.exception.CarRepoException;
 import com.sebastiansiarczynski.SpringBootTest.car.model.Car;
 import jakarta.annotation.PostConstruct;
 import java.util.LinkedList;
@@ -22,7 +23,7 @@ public class CarRepo {
 
   public Car findCarById(final int id) {
     return cars.stream().filter(car -> car.id() == id).findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("There is no car with id " + id));
+        .orElseThrow(() -> new CarRepoException("There is no car with id " + id));
   }
 
   public List<Car> findCarsByYearAndBrand(final int year, final String brand) {

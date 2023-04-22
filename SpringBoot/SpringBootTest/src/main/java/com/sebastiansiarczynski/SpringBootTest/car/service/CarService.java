@@ -1,5 +1,6 @@
 package com.sebastiansiarczynski.SpringBootTest.car.service;
 
+import com.sebastiansiarczynski.SpringBootTest.car.exception.CarServiceException;
 import com.sebastiansiarczynski.SpringBootTest.car.model.Car;
 import com.sebastiansiarczynski.SpringBootTest.car.model.CarDto;
 import com.sebastiansiarczynski.SpringBootTest.car.repo.CarRepo;
@@ -23,13 +24,17 @@ public class CarService {
   }
 
   public List<CarDto> findCarsByYearAndBrand(final int id, final String brand) {
-    final List<Car> carsByYearAndBrand = carRepo.findCarsByYearAndBrand(id, brand);
+    try {
+      final List<Car> carsByYearAndBrand = carRepo.findCarsByYearAndBrand(id, brand);
 
-    if (carsByYearAndBrand.isEmpty()) {
-      return Collections.emptyList();
+      if (carsByYearAndBrand.isEmpty()) {
+        return Collections.emptyList();
+      }
+
+      return carsByYearAndBrand.stream().map(car -> new CarDto(car.brand(), car.model(),
+          car.year())).toList();
+    } catch (Exception error) {
+      throw new CarServiceException("Error while getting cars by year and brand", error);
     }
-
-    return carsByYearAndBrand.stream().map(car -> new CarDto(car.brand(), car.model(),
-        car.year())).toList();
   }
 }

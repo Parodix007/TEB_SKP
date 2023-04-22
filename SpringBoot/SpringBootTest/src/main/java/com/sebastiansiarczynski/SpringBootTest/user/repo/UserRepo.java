@@ -1,5 +1,6 @@
 package com.sebastiansiarczynski.SpringBootTest.user.repo;
 
+import com.sebastiansiarczynski.SpringBootTest.user.exception.UserRepoException;
 import com.sebastiansiarczynski.SpringBootTest.user.model.Habitation;
 import com.sebastiansiarczynski.SpringBootTest.user.model.User;
 import jakarta.annotation.PostConstruct;
@@ -25,7 +26,7 @@ public class UserRepo {
 
   public User getUserById(final int id) {
     return users.stream().filter(user -> user.id() == id).findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("There is no user with this id " + id));
+        .orElseThrow(() -> new UserRepoException("There is no user with this id " + id));
   }
 
   public List<User> getUsersWithinAgeRange(final int minAge, final int maxAge) {

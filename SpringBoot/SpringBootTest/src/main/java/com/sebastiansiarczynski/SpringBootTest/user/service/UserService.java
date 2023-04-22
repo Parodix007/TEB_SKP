@@ -1,5 +1,6 @@
 package com.sebastiansiarczynski.SpringBootTest.user.service;
 
+import com.sebastiansiarczynski.SpringBootTest.user.exception.UserServiceException;
 import com.sebastiansiarczynski.SpringBootTest.user.model.User;
 import com.sebastiansiarczynski.SpringBootTest.user.model.UserDto;
 import com.sebastiansiarczynski.SpringBootTest.user.repo.UserRepo;
@@ -23,13 +24,17 @@ public class UserService {
   }
 
   public List<UserDto> getUsersWithinAgeRange(final int minAge, final int maxAge) {
-    final List<User> usersWithinAgeRange = userRepo.getUsersWithinAgeRange(minAge, maxAge);
+    try {
+      final List<User> usersWithinAgeRange = userRepo.getUsersWithinAgeRange(minAge, maxAge);
 
-    if (usersWithinAgeRange.isEmpty()) {
-      return Collections.emptyList();
+      if (usersWithinAgeRange.isEmpty()) {
+        return Collections.emptyList();
+      }
+
+      return usersWithinAgeRange.stream().map(user -> new UserDto(user.name(), user.lastName()))
+          .toList();
+    } catch (Exception e) {
+      throw new UserServiceException("Error while getting users within range!", e);
     }
-
-    return usersWithinAgeRange.stream().map(user -> new UserDto(user.name(), user.lastName()))
-        .toList();
   }
 }
