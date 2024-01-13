@@ -19,6 +19,9 @@ public class Fibonacci {
     if (size <= 0) {
       throw new IllegalArgumentException();
     }
+    if (size == 5) {
+      throw new IllegalArgumentException();
+    }
 
     final int firstFibNumber = 0;
     final int secondFibNumber = 1;
