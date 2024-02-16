@@ -1,0 +1,13 @@
+services:
+  db_mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: teb-skp-1
+      MYSQL_DATABASE: teb-skp-demo
+    volumes:
+      - teb-skp-demo:/var/libs/mysql
+
+volumes:
+  teb-skp-demo:
