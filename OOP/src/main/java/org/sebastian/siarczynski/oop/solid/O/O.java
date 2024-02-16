@@ -12,6 +12,12 @@ class O {
   boolean isNumberEven(final int number) {
     return number % 2 == 0;
   }
+//  boolean isNumberEven1(final List<Integer> numbers) {
+//    for (Integer number : numbers) {
+////      ...
+//    }
+//    return number % 2 == 0;
+//  }
 
   boolean areNumbersInArrayEven(final List<Integer> numbers) {
     return numbers.stream().allMatch(this::isNumberEven);
