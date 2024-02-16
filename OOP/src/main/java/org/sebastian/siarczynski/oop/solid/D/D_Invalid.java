@@ -6,13 +6,13 @@ package org.sebastian.siarczynski.oop.solid.D;
  * potrzebujemy w logice)
  */
 public class D_Invalid {
-  private final SomeClassInvalid SomeClassInvalid;
+  private final SomeClassInvalid someClassInvalid;
 
   D_Invalid() {
-    SomeClassInvalid = new SomeClassInvalid();
+    someClassInvalid = new SomeClassInvalid();
   }
 
   void startSomeProcess() {
-    SomeClassInvalid.someAction();
+    someClassInvalid.someAction();
   }
 }
