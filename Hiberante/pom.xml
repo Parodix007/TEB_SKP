@@ -21,6 +21,21 @@
            <artifactId>hibernate-core</artifactId>
            <version>6.4.0.Final</version>
        </dependency>
+       <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+       <dependency>
+           <groupId>org.hibernate.validator</groupId>
+           <artifactId>hibernate-validator</artifactId>
+           <version>8.0.0.Final</version>
+       </dependency>
+       <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+       <dependency>
+           <groupId>com.mysql</groupId>
+           <artifactId>mysql-connector-j</artifactId>
+           <version>8.3.0</version>
+       </dependency>
+
+
+<!--       TEST-->
        <!-- https://mvnrepository.com/artifact/org.spockframework/spock-core -->
        <dependency>
            <groupId>org.spockframework</groupId>
@@ -35,19 +50,6 @@
            <version>2.2.220</version>
            <scope>test</scope>
        </dependency>
-       <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
-       <dependency>
-           <groupId>org.hibernate.validator</groupId>
-           <artifactId>hibernate-validator</artifactId>
-           <version>8.0.0.Final</version>
-       </dependency>
-       <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
-       <dependency>
-           <groupId>com.mysql</groupId>
-           <artifactId>mysql-connector-j</artifactId>
-           <version>8.3.0</version>
-       </dependency>
-
    </dependencies>
 
 </project>

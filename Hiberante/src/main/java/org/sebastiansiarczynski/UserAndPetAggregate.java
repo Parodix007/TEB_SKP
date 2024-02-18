@@ -18,7 +18,7 @@ public class UserAndPetAggregate {
           String.format("User: %s does not exists! Cannot create Pet: %s", pet.getOwner(), pet));
     }
 
-    this.saveEntityWithTransaction(pet, entityManager);
+    this.saveEntityWithTransaction(pet);
   }
 
   public void addUser(final User user) {
@@ -26,10 +26,10 @@ public class UserAndPetAggregate {
       throw new IllegalStateException(String.format("User: %s already exists!", user));
     }
 
-    this.saveEntityWithTransaction(user, entityManager);
+    this.saveEntityWithTransaction(user);
   }
 
-  private void saveEntityWithTransaction(final Object entity, final EntityManager entityManager) {
+  private void saveEntityWithTransaction(final Object entity) {
     final EntityTransaction entityTransaction = entityManager.getTransaction();
 
     try {
