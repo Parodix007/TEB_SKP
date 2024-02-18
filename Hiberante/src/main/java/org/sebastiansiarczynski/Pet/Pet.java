@@ -27,14 +27,6 @@ public class Pet {
     this.owner = user;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public Breed getBreed() {
-    return breed;
-  }
-
   public User getOwner() {
     return owner;
   }
