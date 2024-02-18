@@ -14,15 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
 @RestController
 @RequestMapping("/user")
+//127.0.0.1:8080/user
+@Slf4j
 @RequiredArgsConstructor
 public class UserController {
 
   private final UserService userService;
 
   @GetMapping(value = "/{id}")
+  //GET -> 127.0.0.1:8080/user/{id}
+  //POST -> 127.0.0.1:8080/user/add
+  //DELETE -> 127.0.0.1:8080/user/delete/{id}
   public ResponseEntity<UserDto> get(final @PathVariable int id) {
     final UserDto userById = userService.findUserById(id);
 
