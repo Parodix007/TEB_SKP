@@ -22,7 +22,9 @@ public class CarRepo {
   }
 
   public Car findCarById(final int id) {
-    return cars.stream().filter(car -> car.id() == id).findFirst()
+    return cars.stream()
+        .filter(car -> car.id() == id)
+        .findFirst()
         .orElseThrow(() -> new CarRepoException("There is no car with id " + id));
   }
 
