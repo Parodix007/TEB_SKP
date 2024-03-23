@@ -5,9 +5,11 @@ import com.sebastiansiarczynski.SpringBootTest.car.model.Car;
 import jakarta.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Component
 public class CarRepo {
 
   private final List<Car> cars = new LinkedList<>();

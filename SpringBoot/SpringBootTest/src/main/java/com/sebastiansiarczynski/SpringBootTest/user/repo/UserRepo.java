@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Component
 public class UserRepo {
 
   private final List<User> users = new LinkedList<>();
