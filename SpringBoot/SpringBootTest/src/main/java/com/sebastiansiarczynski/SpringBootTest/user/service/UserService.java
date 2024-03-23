@@ -6,6 +6,8 @@ import com.sebastiansiarczynski.SpringBootTest.user.model.dto.UserDto;
 import com.sebastiansiarczynski.SpringBootTest.user.repo.UserRepo;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,10 +33,17 @@ public class UserService {
         return Collections.emptyList();
       }
 
-      return usersWithinAgeRange.stream().map(user -> new UserDto(user.name(), user.lastName()))
+      return usersWithinAgeRange.stream()
+          .map(user -> new UserDto(user.name(), user.lastName()))
           .toList();
     } catch (Exception e) {
       throw new UserServiceException("Error while getting users within range!", e);
     }
+  }
+
+  public UserDto getUserByName(final String name) {
+    final Optional<User> userByName = userRepo.getUserByName(name);
+
+    return userByName.map(user -> new UserDto(user.name(), user.lastName())).orElseThrow();
   }
 }
